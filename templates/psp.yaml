@@ -1,31 +1,37 @@
-apiVersion: extensions/v1beta1
+apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ template "gpu-stats-collector.name" . }}
+  name: {{ .Release.Name }}-gpu-stats-collector 
   labels:
     {{- include "gpu-stats-collector.labels" . | nindent 4 }}
 spec:
   allowPrivilegeEscalation: false
+  volumes:
+  - '*'
   allowedCapabilities:
   - '*'
-  hostIPC: false
+  hostIPC: true
   hostNetwork: true
   hostPID: false
-  privileged: false
+  hostPorts:
+  - min: 7000
+    max: 9000
+  privileged: true
+  readOnlyRootFilesystem: false
   runAsUser:
     rule: MustRunAs
     ranges:
-    - min: 0
-      max: 0
+    - min: 1001
+      max: 1001
   seLinux:
     rule: RunAsAny
   supplementalGroups:
     rule: MustRunAs
     ranges:
-    - min: 0
-      max: 0
+    - min: 1001
+      max: 1001
   fsGroup:
     rule: MustRunAs
     ranges:
-    - min: 0
-      max: 0
+    - min: 1001
+      max: 1001
