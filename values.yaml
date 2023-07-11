@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: ucsdets/gpu-stats-collector
+  repository: ghcr.io/ucsd-ets/gpu_stats_collector
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "gpu-fix"
 
 imagePullSecrets: []
 nameOverride: ""
